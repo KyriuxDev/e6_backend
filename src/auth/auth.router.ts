@@ -35,6 +35,7 @@ export const authRouter = Router();
  *       400:
  *         description: Email ya registrado o datos inválidos
  */
+// La creación de ADMIN/COORDINADOR va en /api/v1/usuarios (protegido)
 authRouter.post('/register', async (req: Request, res: Response) => {
   const parsed = registerSchema.safeParse(req.body);
   if (!parsed.success) {

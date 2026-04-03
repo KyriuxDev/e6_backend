@@ -16,6 +16,8 @@ export const authRepository = {
     email:        string;
     passwordHash: string;
     nombre?:      string;
+    municipioId?: number;
+    comunidadId?: number;
     }): Promise<Usuario> => {
         return prisma.usuario.create({ data });
     },
