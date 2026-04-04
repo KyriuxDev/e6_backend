@@ -20,5 +20,13 @@ export const estadoService ={
             throw Object.assign(new Error('Estado no encontrado'), { statusCode: 404 });
         }
         return estado;
+    },
+
+    getByNombre: async (nombre: string ): Promise<Estado> => {
+        const estado = await estadoRepository.findByNombre(nombre);
+        if (!estado) {
+            throw Object.assign(new Error('Estado no encontrado'), { statusCode: 404 });
+        }
+        return estado;
     }
 };
