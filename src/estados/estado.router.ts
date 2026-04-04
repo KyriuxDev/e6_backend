@@ -6,7 +6,7 @@ export const estadoRouter = Router();
 
 /**
  * @swagger
- * /api/v1/estado:
+ * /api/v1/estados:
  *   get:
  *     summary: Listar todos los estados
  *     tags: [Estado]
@@ -22,7 +22,7 @@ estadoRouter.get('/', async (_req: Request, res: Response) => {
 
 /**
  * @swagger
- * /api/v1/estado/id/{id}:
+ * /api/v1/estados/id/{id}:
  *   get:
  *     summary: Obtener un estado por ID
  *     tags: [Estado]
@@ -41,13 +41,13 @@ estadoRouter.get('/', async (_req: Request, res: Response) => {
  *         description: Estado no encontrado
  */
 estadoRouter.get('/id/:id', async (req: Request, res: Response) => {
-  const user = await estadoService.getById(Number(req.params.id));
-  res.json(user);
+  const estado = await estadoService.getById(Number(req.params.id));
+  res.json(estado);
 });
 
 /**
  * @swagger
- * /api/v1/estado/clave/{clave}:
+ * /api/v1/estados/clave/{clave}:
  *   get:
  *     summary: Obtener un estado por Clave
  *     tags: [Estado]
@@ -55,7 +55,7 @@ estadoRouter.get('/id/:id', async (req: Request, res: Response) => {
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: clave
  *         required: true
  *         schema:
  *           type: integer
@@ -72,7 +72,7 @@ estadoRouter.get('/clave/:clave', async (req: Request, res: Response) =>{
 
 /**
  * @swagger
- * /api/v1/estado/nombre/{nombre}:
+ * /api/v1/estados/nombre/{nombre}:
  *   get:
  *     summary: Obtener un estado por nombre
  *     tags: [Estado]
@@ -80,10 +80,10 @@ estadoRouter.get('/clave/:clave', async (req: Request, res: Response) =>{
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: nombre
  *         required: true
  *         schema:
- *           type: integer
+ *           type: String
  *     responses:
  *       200:
  *         description: Estado encontrado
