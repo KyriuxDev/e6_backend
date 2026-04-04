@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { config } from './config';
 import { authRouter } from './auth/auth.router';
+import { estadoRouter } from './estados/estado.router';
 
 export const app = express();
 
@@ -28,6 +29,7 @@ app.get('/api/health', (_req, res) => { res.json({ status: 'ok' }); });
 
 // Routers
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/estado', estadoRouter);
 
 // Error handler global — Express 5 propaga async errors aquí automáticamente
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
