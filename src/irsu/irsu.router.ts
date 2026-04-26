@@ -26,7 +26,7 @@ export const irsuRouter = Router();
  *       404:
  *         description: Comunidad no encontrada
  */
-irsuRouter.get('/:slug', optionalAuth, async (req: Request, res: Response) => {
+irsuRouter.get('/:slug', optionalAuth, async (req: Request, res: Response): Promise<void> => {
   const parsed = slugParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -93,7 +93,7 @@ irsuRouter.get(
   '/:slug/historial',
   authenticate,
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const slugParsed = slugParamSchema.safeParse(req.params);
     if (!slugParsed.success) {
       res.status(400).json({ errors: slugParsed.error.flatten().fieldErrors });
@@ -139,7 +139,7 @@ irsuRouter.post(
   '/recalcular/todas',
   authenticate,
   authorize('SUPER_ADMIN'),
-  async (_req: Request, res: Response) => {
+  async (_req: Request, res: Response): Promise<void> => {
     const resultado = await irsuService.calcularTodas();
     res.json(resultado);
   }

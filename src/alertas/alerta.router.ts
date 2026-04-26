@@ -60,7 +60,7 @@ alertaRouter.use(authenticate);
 alertaRouter.get(
   '/',
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const parsed = filtrosAlertaSchema.safeParse(req.query);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -94,7 +94,7 @@ alertaRouter.get(
 alertaRouter.get(
   '/:id',
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const parsed = idParamSchema.safeParse(req.params);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -130,7 +130,7 @@ alertaRouter.get(
 alertaRouter.patch(
   '/:id/tomar',
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const parsed = idParamSchema.safeParse(req.params);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -179,7 +179,7 @@ alertaRouter.patch(
 alertaRouter.patch(
   '/:id/asignar',
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const idParsed = idParamSchema.safeParse(req.params);
     if (!idParsed.success) {
       res.status(400).json({ errors: idParsed.error.flatten().fieldErrors });
@@ -235,7 +235,7 @@ alertaRouter.patch(
 alertaRouter.patch(
   '/:id/cerrar',
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const idParsed = idParamSchema.safeParse(req.params);
     if (!idParsed.success) {
       res.status(400).json({ errors: idParsed.error.flatten().fieldErrors });

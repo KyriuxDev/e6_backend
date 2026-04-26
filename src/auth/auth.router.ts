@@ -1,6 +1,3 @@
-// Endpoints HTTP del dominio HTTP.
-// Express 5: los async handlers propagan errores automáticamente — no se necesita try/catch.
-
 import { Router, Request, Response } from 'express';
 import { authService } from './auth.service';
 import { registerSchema, loginSchema } from './auth.schema';
@@ -35,8 +32,7 @@ export const authRouter = Router();
  *       400:
  *         description: Email ya registrado o datos inválidos
  */
-// La creación de ADMIN/COORDINADOR va en /api/v1/usuarios (protegido)
-authRouter.post('/register', async (req: Request, res: Response) => {
+authRouter.post('/register', async (req: Request, res: Response): Promise<void> => {
   const parsed = registerSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -73,7 +69,7 @@ authRouter.post('/register', async (req: Request, res: Response) => {
  *       403:
  *         description: Cuenta desactivada
  */
-authRouter.post('/login', async (req: Request, res: Response) => {
+authRouter.post('/login', async (req: Request, res: Response): Promise<void> => {
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });

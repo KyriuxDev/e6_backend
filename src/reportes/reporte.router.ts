@@ -47,7 +47,7 @@ export const reporteRouter = Router();
  *       200:
  *         description: Lista paginada de reportes
  */
-reporteRouter.get('/', optionalAuth, async (req: Request, res: Response) => {
+reporteRouter.get('/', optionalAuth, async (req: Request, res: Response) : Promise<void> => {
   const parsed = filtrosReporteSchema.safeParse(req.query);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -75,7 +75,7 @@ reporteRouter.get('/', optionalAuth, async (req: Request, res: Response) => {
  *       404:
  *         description: Reporte no encontrado
  */
-reporteRouter.get('/:id', optionalAuth, async (req: Request, res: Response) => {
+reporteRouter.get('/:id', optionalAuth, async (req: Request, res: Response) : Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -130,7 +130,7 @@ reporteRouter.get('/:id', optionalAuth, async (req: Request, res: Response) => {
  *       429:
  *         description: Límite de reportes anónimos alcanzado
  */
-reporteRouter.post('/', optionalAuth, async (req: Request, res: Response) => {
+reporteRouter.post('/', optionalAuth, async (req: Request, res: Response) : Promise<void> => {
   const parsed = createReporteSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -187,7 +187,7 @@ reporteRouter.post('/', optionalAuth, async (req: Request, res: Response) => {
  *       403:
  *         description: Solo puedes editar tus propios reportes
  */
-reporteRouter.patch('/:id', authenticate, async (req: Request, res: Response) => {
+reporteRouter.patch('/:id', authenticate, async (req: Request, res: Response) : Promise<void> => {
   const idParsed = idParamSchema.safeParse(req.params);
   if (!idParsed.success) {
     res.status(400).json({ errors: idParsed.error.flatten().fieldErrors });
@@ -224,7 +224,7 @@ reporteRouter.patch('/:id', authenticate, async (req: Request, res: Response) =>
  *       403:
  *         description: Solo puedes eliminar tus propios reportes
  */
-reporteRouter.delete('/:id', authenticate, async (req: Request, res: Response) => {
+reporteRouter.delete('/:id', authenticate, async (req: Request, res: Response) : Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -271,7 +271,7 @@ reporteRouter.patch(
   '/:id/estado',
   authenticate,
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const idParsed = idParamSchema.safeParse(req.params);
     if (!idParsed.success) {
       res.status(400).json({ errors: idParsed.error.flatten().fieldErrors });

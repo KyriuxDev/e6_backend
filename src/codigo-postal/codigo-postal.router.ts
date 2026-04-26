@@ -25,7 +25,7 @@ export const codigoPostalRouter = Router();
  *       400:
  *         description: Código postal inválido
  */
-codigoPostalRouter.get('/', async (req: Request, res: Response) => {
+codigoPostalRouter.get('/', async (req: Request, res: Response): Promise<void> => {
   const parsed = codigoQuerySchema.safeParse(req.query);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -56,7 +56,7 @@ codigoPostalRouter.get('/', async (req: Request, res: Response) => {
  *       404:
  *         description: Código postal no encontrado
  */
-codigoPostalRouter.get('/id/:id', async (req: Request, res: Response) => {
+codigoPostalRouter.get('/id/:id', async (req: Request, res: Response): Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -87,7 +87,7 @@ codigoPostalRouter.get('/id/:id', async (req: Request, res: Response) => {
  *       404:
  *         description: Municipio no encontrado
  */
-codigoPostalRouter.get('/municipio/:municipioId', async (req: Request, res: Response) => {
+codigoPostalRouter.get('/municipio/:municipioId', async (req: Request, res: Response): Promise<void> => {
   const parsed = municipioIdParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });

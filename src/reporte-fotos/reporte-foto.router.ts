@@ -25,7 +25,7 @@ export const reporteFotoRouter = Router({ mergeParams: true });
  *       404:
  *         description: Reporte no encontrado
  */
-reporteFotoRouter.get('/', optionalAuth, async (req: Request, res: Response) => {
+reporteFotoRouter.get('/', optionalAuth, async (req: Request, res: Response): Promise<void> => {
   const parsed = reporteIdParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -74,7 +74,7 @@ reporteFotoRouter.get('/', optionalAuth, async (req: Request, res: Response) => 
  *       404:
  *         description: Reporte no encontrado
  */
-reporteFotoRouter.post('/', authenticate, async (req: Request, res: Response) => {
+reporteFotoRouter.post('/', authenticate, async (req: Request, res: Response): Promise<void> => {
   const paramParsed = reporteIdParamSchema.safeParse(req.params);
   if (!paramParsed.success) {
     res.status(400).json({ errors: paramParsed.error.flatten().fieldErrors });
@@ -124,7 +124,7 @@ reporteFotoRouter.post('/', authenticate, async (req: Request, res: Response) =>
  *       404:
  *         description: Reporte o foto no encontrados
  */
-reporteFotoRouter.delete('/:id', authenticate, async (req: Request, res: Response) => {
+reporteFotoRouter.delete('/:id', authenticate, async (req: Request, res: Response): Promise<void> => {
   const parsed = fotoIdParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
