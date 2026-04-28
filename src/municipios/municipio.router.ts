@@ -14,7 +14,7 @@ export const municipioRouter = Router();
  *       200:
  *         description: Lista de municipios ordenados por ID
  */
-municipioRouter.get('/', async (_req: Request, res: Response) => {
+municipioRouter.get('/', async (_req: Request, res: Response): Promise<void> => {
   const municipios = await municipioService.getAll();
   res.json(municipios);
 });
@@ -40,7 +40,7 @@ municipioRouter.get('/', async (_req: Request, res: Response) => {
  *       404:
  *         description: Municipio no encontrado
  */
-municipioRouter.get('/id/:id', async (req: Request, res: Response) => {
+municipioRouter.get('/id/:id', async (req: Request, res: Response): Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -73,7 +73,7 @@ municipioRouter.get('/id/:id', async (req: Request, res: Response) => {
  *       404:
  *         description: Municipio no encontrado
  */
-municipioRouter.get('/clave/:clave', async (req: Request, res: Response) => {
+municipioRouter.get('/clave/:clave', async (req: Request, res: Response): Promise<void> => {
   const parsed = claveMunicipioSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -104,7 +104,7 @@ municipioRouter.get('/clave/:clave', async (req: Request, res: Response) => {
  *       404:
  *         description: Municipio no encontrado
  */
-municipioRouter.get('/nombre/:nombre', async (req: Request, res: Response) => {
+municipioRouter.get('/nombre/:nombre', async (req: Request, res: Response): Promise<void> => {
   const parsed = nombreParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -135,7 +135,7 @@ municipioRouter.get('/nombre/:nombre', async (req: Request, res: Response) => {
  *       404:
  *         description: Municipio no encontrado
  */
-municipioRouter.get('/:id/comunidades', async (req: Request, res: Response) => {
+municipioRouter.get('/:id/comunidades', async (req: Request, res: Response): Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });

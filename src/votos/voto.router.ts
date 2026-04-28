@@ -24,7 +24,7 @@ export const votoRouter = Router({ mergeParams: true });
  *       404:
  *         description: Reporte no encontrado
  */
-votoRouter.get('/', optionalAuth, async (req: Request, res: Response) => {
+votoRouter.get('/', optionalAuth, async (req: Request, res: Response) : Promise<void> => {
   const parsed = reporteIdParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -58,7 +58,7 @@ votoRouter.get('/', optionalAuth, async (req: Request, res: Response) => {
  *       404:
  *         description: Reporte no encontrado
  */
-votoRouter.post('/', authenticate, async (req: Request, res: Response) => {
+votoRouter.post('/', authenticate, async (req: Request, res: Response) : Promise<void> => {
   const parsed = reporteIdParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -92,7 +92,7 @@ votoRouter.post('/', authenticate, async (req: Request, res: Response) => {
  *       404:
  *         description: Reporte no encontrado
  */
-votoRouter.delete('/', authenticate, async (req: Request, res: Response) => {
+votoRouter.delete('/', authenticate, async (req: Request, res: Response) : Promise<void> => {
   const parsed = reporteIdParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });

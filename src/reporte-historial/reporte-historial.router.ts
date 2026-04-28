@@ -43,7 +43,7 @@ reporteHistorialRouter.get(
   '/',
   authenticate,
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const paramParsed = reporteIdParamSchema.safeParse(req.params);
     if (!paramParsed.success) {
       res.status(400).json({ errors: paramParsed.error.flatten().fieldErrors });

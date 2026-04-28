@@ -27,7 +27,7 @@ usuarioRouter.use(authenticate);
  *       401:
  *         description: Token requerido
  */
-usuarioRouter.get('/perfil', async (req: Request, res: Response) => {
+usuarioRouter.get('/perfil', async (req: Request, res: Response) : Promise<void> => {
   const perfil = await usuarioService.getPerfil(req.user!.sub);
   res.json(perfil);
 });
@@ -79,7 +79,7 @@ usuarioRouter.get('/perfil', async (req: Request, res: Response) => {
 usuarioRouter.get(
   '/',
   authorize('SUPER_ADMIN', 'ADMIN', 'COORDINADOR'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const parsed = filtrosUsuarioSchema.safeParse(req.query);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -115,7 +115,7 @@ usuarioRouter.get(
 usuarioRouter.get(
   '/:id',
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const parsed = idParamSchema.safeParse(req.params);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -165,7 +165,7 @@ usuarioRouter.get(
 usuarioRouter.post(
   '/admin',
   authorize('SUPER_ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const parsed = createAdminSchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -215,7 +215,7 @@ usuarioRouter.post(
 usuarioRouter.post(
   '/coordinador',
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const parsed = createCoordinadorSchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -253,7 +253,7 @@ usuarioRouter.post(
 usuarioRouter.patch(
   '/:id/desactivar',
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void>  => {
     const parsed = idParamSchema.safeParse(req.params);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -289,7 +289,7 @@ usuarioRouter.patch(
 usuarioRouter.patch(
   '/:id/activar',
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response) : Promise<void> => {
     const parsed = idParamSchema.safeParse(req.params);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });

@@ -14,7 +14,7 @@ export const estadoRouter = Router();
  *       200:
  *         description: Lista de estados ordenados por ID
  */
-estadoRouter.get('/', async (_req: Request, res: Response) => {
+estadoRouter.get('/', async (_req: Request, res: Response): Promise<void> => {
   const estados = await estadoService.getAll();
   res.json(estados);
 });
@@ -40,7 +40,7 @@ estadoRouter.get('/', async (_req: Request, res: Response) => {
  *       404:
  *         description: Estado no encontrado
  */
-estadoRouter.get('/id/:id', async (req: Request, res: Response) => {
+estadoRouter.get('/id/:id', async (req: Request, res: Response): Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -73,7 +73,7 @@ estadoRouter.get('/id/:id', async (req: Request, res: Response) => {
  *       404:
  *         description: Estado no encontrado
  */
-estadoRouter.get('/clave/:clave', async (req: Request, res: Response) => {
+estadoRouter.get('/clave/:clave', async (req: Request, res: Response): Promise<void> => {
   const parsed = claveEstadoSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -104,7 +104,7 @@ estadoRouter.get('/clave/:clave', async (req: Request, res: Response) => {
  *       404:
  *         description: Estado no encontrado
  */
-estadoRouter.get('/nombre/:nombre', async (req: Request, res: Response) => {
+estadoRouter.get('/nombre/:nombre', async (req: Request, res: Response): Promise<void> => {
   const parsed = nombreParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -135,7 +135,7 @@ estadoRouter.get('/nombre/:nombre', async (req: Request, res: Response) => {
  *       404:
  *         description: Estado no encontrado
  */
-estadoRouter.get('/:id/municipios', async (req: Request, res: Response) => {
+estadoRouter.get('/:id/municipios', async (req: Request, res: Response): Promise<void> => {
   const parsed = idParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });

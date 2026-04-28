@@ -44,7 +44,7 @@ export const comunidadRouter = Router();
  *       400:
  *         description: Filtros inválidos
  */
-comunidadRouter.get('/', async (req: Request, res: Response) => {
+comunidadRouter.get('/', async (req: Request, res: Response): Promise<void> => {
   const parsed = filtrosComunidadSchema.safeParse(req.query);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -76,7 +76,7 @@ comunidadRouter.get('/', async (req: Request, res: Response) => {
  *       404:
  *         description: Comunidad no encontrada
  */
-comunidadRouter.get('/:slug', async (req: Request, res: Response) => {
+comunidadRouter.get('/:slug', async (req: Request, res: Response): Promise<void> => {
   const parsed = slugParamSchema.safeParse(req.params);
   if (!parsed.success) {
     res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -133,7 +133,7 @@ comunidadRouter.post(
   '/',
   authenticate,
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const parsed = createComunidadSchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten().fieldErrors });
@@ -193,7 +193,7 @@ comunidadRouter.patch(
   '/:slug',
   authenticate,
   authorize('SUPER_ADMIN', 'ADMIN'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     const slugParsed = slugParamSchema.safeParse(req.params);
     if (!slugParsed.success) {
       res.status(400).json({ errors: slugParsed.error.flatten().fieldErrors });
