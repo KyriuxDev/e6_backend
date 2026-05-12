@@ -19,6 +19,7 @@ import { alertaRouter } from './alertas/alerta.router';
 import { irsuRouter } from './irsu/irsu.router';
 import { AppError } from './lib/app-error';
 import { perfilRouter } from './perfil/perfil.router';
+import { rankingRouter } from './ranking/ranking.router';
 
 
 
@@ -26,6 +27,7 @@ export const app = express();
 
 app.use(cors());
 app.use(express.json());
+
 
 const swaggerSpec = swaggerJsdoc({
   definition: {
@@ -59,6 +61,7 @@ app.use('/api/v1/reportes/:reporteId/votos', votoRouter);
 app.use('/api/v1/reportes/:reporteId/historial', reporteHistorialRouter);
 app.use('/api/perfil', perfilRouter);
 app.use('/uploads', express.static(path.resolve('uploads')));
+app.use('/api/v1/ranking', rankingRouter);
 
 // Error handler global — Express 5 propaga async errors aquí automáticamente
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
