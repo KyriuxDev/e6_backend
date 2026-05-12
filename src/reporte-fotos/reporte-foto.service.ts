@@ -21,41 +21,41 @@ export const reporteFotoService = {
 	},
 
     add: async (
-      reporteId: number,
-      files: Express.Multer.File[],
-      user: TokenPayload,
-    ) => {
-      const reporte = await getReporteOr404(reporteId);
+		reporteId: number,
+		files: Express.Multer.File[],
+		user?: TokenPayload,
+		) => {
+		const reporte = await getReporteOr404(reporteId);
 
-      const esAutor = reporte.usuarioId === user.sub;
+		const reporteEsAnonimo = reporte.usuarioId === null;
 
-      const esAutoridad = ["SUPER_ADMIN", "ADMIN", "COORDINADOR"].includes(
-        user.rol,
-      );
+		if (!reporteEsAnonimo) {
+			const esAutor     = user?.sub === reporte.usuarioId;
+			const esAutoridad = user
+			? ["SUPER_ADMIN", "ADMIN", "COORDINADOR"].includes(user.rol)
+			: false;
 
-      if (!esAutor && !esAutoridad) {
-        throw new AppError(
-          403,
-          "Solo puedes agregar fotos a tus propios reportes",
-        );
-      }
+			if (!esAutor && !esAutoridad) {
+			throw new AppError(403, "Solo puedes agregar fotos a tus propios reportes");
+			}
+		}
 
-      if (["RESUELTO", "RECHAZADO"].includes(reporte.estado)) {
-        throw new AppError(400, "No se pueden agregar fotos");
-      }
+		if (["RESUELTO", "RECHAZADO"].includes(reporte.estado)) {
+			throw new AppError(400, "No se pueden agregar fotos");
+		}
 
-      const actual = await reporteFotoRepository.countByReporte(reporteId);
+		const actual = await reporteFotoRepository.countByReporte(reporteId);
 
-      if (actual + files.length > MAX_FOTOS) {
-        throw new AppError(400, `Máximo ${MAX_FOTOS} fotos`);
-      }
+		if (actual + files.length > MAX_FOTOS) {
+			throw new AppError(400, `Máximo ${MAX_FOTOS} fotos`);
+		}
 
-      const urls = files.map((file) => `/uploads/reports/${file.filename}`);
+		const urls = files.map((file) => `/uploads/reports/${file.filename}`);
 
-      await reporteFotoRepository.addMany(reporteId, urls);
+		await reporteFotoRepository.addMany(reporteId, urls);
 
-      return reporteFotoRepository.findByReporte(reporteId);
-    },
+		return reporteFotoRepository.findByReporte(reporteId);
+		},
 
 	delete: async (reporteId: number, fotoId: number, user: TokenPayload) => {
 		await getReporteOr404(reporteId);
