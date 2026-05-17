@@ -55,7 +55,7 @@ app.use('/api/v1/codigos-postales', codigoPostalRouter);
 app.use('/api/v1/comunidades', comunidadRouter);
 app.use('/api/v1/usuarios', usuarioRouter);
 app.use('/api/v1/alertas', alertaRouter);
-app.use('/api/v1/irsu', irsuRouter);;
+app.use('/api/v1/irsu', irsuRouter);
 app.use('/api/v1/reportes', reporteRouter)
 app.use('/api/v1/reportes/:reporteId/fotos', reporteFotoRouter);
 app.use('/api/v1/reportes/:reporteId/votos', votoRouter);
